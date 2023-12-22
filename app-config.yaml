@@ -48,6 +48,9 @@ integrations:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
     #   token: ${GHE_TOKEN}
+  bitbucketCloud:
+    - username: ${BITBUCKET_CLOUD_USERNAME}
+      appPassword: ${BITBUCKET_CLOUD_PASSWORD}
 
 proxy:
   ### Example for how to add a proxy endpoint for the frontend.
@@ -89,20 +92,26 @@ catalog:
     - allow: [Component, System, API, Resource, Location]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    - type: file
-      target: ../../examples/entities.yaml
+    #- type: file
+    #  target: ../../examples/entities.yaml
+
+    # Local example template
+    #- type: file
+    #  target: ../../examples/template/template.yaml
+    #  rules:
+    #    - allow: [Template]
+
+    # Local example organizational data
+    #- type: file
+    #  target: ../../examples/org.yaml
+    #  rules:
+    #    - allow: [User, Group]
 
     # Local example template
     - type: file
-      target: ../../examples/template/template.yaml
+      target: ../../test-docs-template/template.yaml
       rules:
         - allow: [Template]
-
-    # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url
