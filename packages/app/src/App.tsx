@@ -15,6 +15,7 @@ import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage/plugin-tech-radar';
 import {
+  DefaultTechDocsHome,
   TechDocsIndexPage,
   techdocsPlugin,
   TechDocsReaderPage,
@@ -27,7 +28,7 @@ import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { AlertDisplay, OAuthRequestDialog, SignInProviderConfig, SignInPage } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
@@ -35,7 +36,6 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
-import { SignInProviderConfig, SignInPage } from '@backstage/core-components';
 
 const githubProvider: SignInProviderConfig = {
   id: 'github-auth-provider',
@@ -112,6 +112,17 @@ const routes = (
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    <Route path="/docs" element={<TechDocsIndexPage />}>
+      <DefaultTechDocsHome />
+    </Route>
+    <Route
+      path="/docs/:namespace/:kind/:name/*"
+      element={<TechDocsReaderPage />}
+    >
+      <TechDocsAddons>
+        <ReportIssue />
+      </TechDocsAddons>
+    </Route>
   </FlatRoutes>
 );
 
